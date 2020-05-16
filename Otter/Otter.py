@@ -172,12 +172,10 @@ class Algebra:
             if function is not None:
                 self.f = function
 
-        def bissec(self, interval):
-            """ invertal = [a,b,e] ;  with 'a' being the first value of the interval, 'b' the last value of the interval and 'e' the precision of the procedure. """
-    
-            a = interval[0]
-            b = interval[1]
-            e = interval[2]
+        def bissec(self,a,b,e=None):
+
+            if e is None:
+                e = 10**(-6)
 
             fa = self.f(a)
             
@@ -202,10 +200,10 @@ class Algebra:
         def d(self, x, e):
             return (self.f(x + e) - self.f(x - e))/(2*e)
 
-        def newton(self, interval):
+        def newton(self,a,e=None):
 
-            a = interval[0]
-            e = interval[1]
+            if e is None:
+                e = 10**(-6)
             
             fa = self.f(a)
             da = self.d(a,e)
@@ -221,11 +219,10 @@ class Algebra:
                 
             return a
 
-        def bissec_newton(self, interval):
+        def bissec_newton(self,a,b,e=None):
 
-            a = interval[0]
-            b = interval[1]
-            e = interval[2]
+            if e is None:
+                e = 10**(-6)
                 
             fa = self.f(a)
             
