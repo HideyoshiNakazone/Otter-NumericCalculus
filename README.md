@@ -16,7 +16,7 @@ This python package is made for applied Numeric Calculus of Algebra Functions. I
 
 * Solve Diferential Equations throw method of euler and runge
 
-* Performe Polinomial Interpolation and Minimus Interpolation
+* Performe Minimus Interpolation and Polinomial Interpolation
 
 ## Syntax
 
@@ -50,13 +50,19 @@ If `e` is not defined the standart value is 10^(-6).
 
 #### Diferential Equations
 
+To call the class *EDO* (*E*quações *D*iferenciais *O*rdinárias) append the sufix with lower case in front of the instance like: `otr.edo`. The *EDO* class has two methods defined inside: `euler` and `runge`, to call them append the sufix with lower case in front as `otr.edo.euler` or `otr.edo.runge`.
+
+The syntax for the diferential equations method is equal to `otr.edo.euler(a,y,b,n)` or `otr.edo.runge(a,y,b,n)`, where `a` and `y` will be the inintial point  and `b` is the value in *x* which you want to know the corresponding value in *y* and `n` is the number of operations.
+
+If `n` is not defined the standart value is 10^7.
+
 ### Interpolation
 
-The python class *process* has all the methods described in the first session.
+The python class *Interpolation* is divided in one method, minimus interpolation, and one class, polinomial interpolation.
 
-To call the method use a syntax like `sl = Seals.process()`, where `sl` is an instance and to use a method you have to append the method in front of the instance like: `sl.identity(array)`.
+To call the method *minimus* use a syntax like `otr = Otter.interpolation(data)`, where `otr` is an instance and append the method in front of the instance like: `otr.minimus(x)`, where *x* is value of *f(x)* you want to estimate.
 
-* The method *identity* returns a *numpy* identity matrix of the order of the matrix passed into to it, and it has the following syntax `sl.identity(array)`, which `array` is a square matrix.
+To call the class *Polinomial* append the sufix with lower case in front of the instance like: `otr.polinomial`. The *Polinomial* class has four methods defined inside: `vandermonde`, `lagrange`, `newton` and `gregory`, to call them append the sufix with lower case in front like `otr.edo.gregory(x)` where *x* is value of *f(x)* you want to estimate..
 
 ## Installation
 

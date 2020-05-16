@@ -262,12 +262,10 @@ class Algebra:
         def __init__(self, function):
             self.f = function
 
-        def euler(self, interval):
+        def euler(self,a,y,b,n=None):
 
-            a = interval[0]
-            b = interval[1]
-            y = interval[2]
-            n = int(interval[3])
+            if n is None:
+                n = 10**7
 
             dx = (b-a)/n
 
@@ -280,12 +278,10 @@ class Algebra:
                 
             return y
 
-        def runge(self, interval):
+        def runge(self,a,y,b,n=None):
 
-            a = interval[0]
-            b = interval[1]
-            y = interval[2]
-            n = int(interval[3])
+            if n is None:
+                n = 10**7
 
             dx = (b-a)/n
 
@@ -305,6 +301,59 @@ class Interpolation:
 
         self.data = data
         self.polinomial = self.Polinomial(self.data)
+
+    def minimus(self,x):
+
+        theta = 0
+        # somatorio de x
+        for i in range(self.data.shape[0]):
+
+            theta += self.data[i][0]
+
+        eta = 0
+        #somatorio de y
+        for i in range(self.data.shape[0]):
+
+            eta += self.data[i][1]
+
+        sigma = 0
+        #somatorio de xy
+        for i in range(self.data.shape[0]):
+
+            sigma += self.data[i][0]*self.data[i][1]
+
+        omega = 0
+        #somatorio de x^2
+        for i in range(self.data.shape[0]):
+
+            omega += self.data[i][0]**2
+
+
+        self.a = (self.data.shape[0]*sigma - theta*eta)/(self.data.shape[0]*omega - (theta**2))
+
+        self.b = (theta*sigma - eta*omega)/((theta**2) - self.data.shape[0]*omega)
+        
+        ym = 0
+
+        for i in range(self.data.shape[0]):
+
+            ym += self.data[i][1]/self.data.shape[0]
+
+        sqreq = 0
+
+        for i in range(self.data.shape[0]):
+
+            sqreq += ((self.a*self.data[i][0] + self.b) - ym)**2
+
+        sqtot = 0
+
+        for i in range(self.data.shape[0]):
+
+            sqtot += (self.data[i][1] - ym)**2
+
+        self.r2 = sqreq/sqtot
+
+        return self.a*x + self.b
 
     class Polinomial:
 
@@ -428,57 +477,4 @@ class Interpolation:
                 y += d[i+1][0]*mult
                 i += 1
 
-            return y
-            
-        def minimus(self,x):
-
-            theta = 0
-            # somatorio de x
-            for i in range(self.data.shape[0]):
-
-                theta += self.data[i][0]
-
-            eta = 0
-            #somatorio de y
-            for i in range(self.data.shape[0]):
-
-                eta += self.data[i][1]
-
-            sigma = 0
-            #somatorio de xy
-            for i in range(self.data.shape[0]):
-
-                sigma += self.data[i][0]*self.data[i][1]
-
-            omega = 0
-            #somatorio de x^2
-            for i in range(self.data.shape[0]):
-
-                omega += self.data[i][0]**2
-
-
-            self.a = (self.data.shape[0]*sigma - theta*eta)/(self.data.shape[0]*omega - (theta**2))
-
-            self.b = (theta*sigma - eta*omega)/((theta**2) - self.data.shape[0]*omega)
-            
-            ym = 0
-
-            for i in range(self.data.shape[0]):
-
-                ym += self.data[i][1]/self.data.shape[0]
-
-            sqreq = 0
-
-            for i in range(self.data.shape[0]):
-
-                sqreq += ((self.a*self.data[i][0] + self.b) - ym)**2
-
-            sqtot = 0
-
-            for i in range(self.data.shape[0]):
-
-                sqtot += (self.data[i][1] - ym)**2
-
-            self.r2 = sqreq/sqtot
-
-            return self.a*x + self.b   
+            return y   
