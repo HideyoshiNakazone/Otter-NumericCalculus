@@ -1,0 +1,9 @@
+README.md
+setup.py
+Otter/Otter.py
+Otter/__init__.py
+Otter.egg-info/PKG-INFO
+Otter.egg-info/SOURCES.txt
+Otter.egg-info/dependency_links.txt
+Otter.egg-info/requires.txt
+Otter.egg-info/top_level.txt
