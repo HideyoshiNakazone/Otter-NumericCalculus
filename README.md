@@ -72,4 +72,4 @@ To install the package from source `cd` into the directory and run:
 
 or run
 
-`pip install otter`
+`pip install yoshi-otter`
