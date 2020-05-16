@@ -62,7 +62,7 @@ The python class *Interpolation* is divided in one method, minimus interpolation
 
 To call the method *minimus* use a syntax like `otr = Otter.interpolation(data)`, where `otr` is an instance and append the method in front of the instance like: `otr.minimus(x)`, where *x* is value of *f(x)* you want to estimate.
 
-To call the class *Polinomial* append the sufix with lower case in front of the instance like: `otr.polinomial`. The *Polinomial* class has four methods defined inside: `vandermonde`, `lagrange`, `newton` and `gregory`, to call them append the sufix with lower case in front like `otr.edo.gregory(x)` where *x* is value of *f(x)* you want to estimate..
+To call the class *Polinomial* append the sufix with lower case in front of the instance like: `otr.polinomial`. The *Polinomial* class has four methods defined inside: `vandermonde`, `lagrange`, `newton` and `gregory`, to call them append the sufix with lower case in front like `otr.edo.gregory(x)` where *x* is value of *f(x)* you want to estimate.
 
 ## Installation
 
