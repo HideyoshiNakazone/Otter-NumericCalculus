@@ -36,7 +36,7 @@ Algebra is a Python Class where some of the features described previously are de
 To call the class *Integral* append the sufix with lower case in front of the instance like: `otr.integral`. The Integral class has two other class defined inside, `Simple` and `Double`, to call them append the sufix with lower case in front as `otr.integral.simple` or `otr.integral.double`. Then pick between Riemann's Method or Simpson's Method by appending the sufix `riemann` or `simpson` as well.
 
 After that the syntax will be something like `otr.integral.double.riemann(a,b,c,d,n,m)`, where `a` and `c` will be the first value of the interval of integration 
-respectively in x and y, `b` and `d` will be the last, `n` and `m` will be the number of partions.
+respectively in x and y, `b` and `d` will be the last, `n` and `m` will be the number of partitions.
 
 The syntax for one variable integrations will be `otr.integral.simple.riemann(a,b,n)`.
 
