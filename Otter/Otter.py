@@ -26,11 +26,10 @@ class Algebra:
             def __init__(self, function):
                 self.f = function
 
-            def riemann(self,interval):
+            def riemann(self,a,b,n=None):
                 
-                a = interval[0]
-                b = interval[1]
-                n = interval[2]
+                if n is None:
+                    n = 10**6
 
                 delta = (b-a)/n
 
@@ -46,14 +45,13 @@ class Algebra:
 
                 return integral
 
-            def simpson(self, interval):
+            def simpson(self,a,b,n=None):
+
+                if n is None:
+                    n = 10**6
 
                 def x(i):
                     return a + i*h
-
-                a = interval[0]
-                b = interval[1]
-                n = interval[2]
 
                 h = (b-a)/n
 
@@ -81,15 +79,13 @@ class Algebra:
             def __init__(self,function):
                 self.f = function
 
-            def riemann(self,x_interval,y_interval):
+            def riemann(self,a,b,c,d,n=None,m=None):
+                
+                if n is None:
+                    n = 10**4
 
-                a = x_interval[0]
-                b = x_interval[1]
-                n = x_interval[2]
-
-                c = y_interval[0]
-                d = y_interval[1]
-                m = y_interval[2]
+                if m is None:
+                    m = n
 
                 dx = (b-a)/n
                 dy = (d-c)/m
@@ -109,15 +105,13 @@ class Algebra:
 
                 return theta*(dx)*(dy)
 
-            def simpson(self,x_interval,y_interval):
+            def simpson(self,a,b,c,d,n=None,m=None):
+                
+                if n is None:
+                    n = 10**4
 
-                a = x_interval[0]
-                b = x_interval[1]
-                n = x_interval[2]
-
-                c = y_interval[0]
-                d = y_interval[1]
-                m = y_interval[2]
+                if m is None:
+                    m = n
 
                 dx = (b-a)/n
                 dy = (d-c)/m

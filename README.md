@@ -1,50 +1,54 @@
-# Numeric Calculus
+# Otter - Numeric Calculus
 
-This is a Repository of Python Packages for Numeric Calculus. It contains two packages: Seals and Otter.
+This python package is made for applied Numeric Calculus of Algebra Functions. It is made with the following objectives in mind:
 
-## Seals
 
-The package Seals is made for Linear Algebra. It's able to:
+## Otter
 
-* Scan *csv* files to make a numpy matrix.
+The package Seals is made for Algebra Functions. It's able to:
 
-* Write a matrix into a *csv* file
+* Receive one variable function from user input
+  
+* Receive two variable function from user input
 
-* Insert user input into a matrix or a vector.
+* Performe derivatives with one variable functions
+
+* Performe integral with received functions
 
 * Use methods to proccess the matrices.
-  * Identity Matrix 
-  * Gauss Elimination
-  * Inverse Matrix
-  * Cholesky Decomposition
-  * LU Decomposition
-  * Cramer
+
+* Find root of functions throw method of bissection and method of newton
+
+* Solve Diferential Equations throw method of euler and runge
+
+* Performe Polinomial Interpolation and Minimus Interpolation
 
 ### Syntax
 
-The function *scan* has the following syntax `scan(path)`, where `path` is the path to your directory.
+To initialize a Otter instance linked to functions use the following syntax `otr = Otter.algebra(f)`, where `otr` will be a arbitrary name for the instance and `f` is a function of *one variable*.
 
-The function *solution* has the following syntax `write(array,path)`, where `array` is the matrix that you desire to output and `path` is the path to your directory.
+To initialize a Otter instance linked to data and interpolation use the following syntax `otr = Otter.interpolation(data)`, where `otr` will be a arbitrary name for the instance and data will be a *numpy* matrix where the first columns has to contain the values for `x` and the second column contains the values for `y`.
 
-The python class *Insert* has a method for *matrix* and another for *vector*, and it has the following syntax `Insert.method(array)`, where `Insert` is the *Python Class* and `method` is either a `matrix` or a `vector` and `array` is either a *matrix* or a *vector*.
+### Algebra
 
-### Processes
+Algebra is a Python Class where some of the features described previously are defined as Classes as well, like: `Integral`, `Roots`, `EDO` (diferential equations).
+
+To call the class *Integral* append the sufix with lower case in front of the instance like: `otr.integral`. The Integral class has two other class defined inside, `Simple` and `Double`, to call them append the sufix with lower case in front as `otr.integral.simple` or `otr.integral.double`. Then pick between Riemann's Method or Simpson's Method by appending the sufix `riemann` or `simpson` as well.
+
+After that the syntax will be something like `otr.integral.double.riemann(a,b,c,d,n,m)`, where `a` and `c` will be the first value of the interval of integration 
+respectively in x and y, `b` and `d` will be the last, `n` and `m` will be the number of partions.
+
+The syntax for one variable integrations will be `otr.integral.simple.riemann(a,b,n)`.
+
+If `n` is not defined the standart value in 10^6 partitions for one variable and 10^4 for double. And if `m` is not defined the standart value will be equal to `n`.
+
+### Interpolation
 
 The python class *process* has all the methods described in the first session.
 
 To call the method use a syntax like `sl = Seals.process()`, where `sl` is an instance and to use a method you have to append the method in front of the instance like: `sl.identity(array)`.
 
 * The method *identity* returns a *numpy* identity matrix of the order of the matrix passed into to it, and it has the following syntax `sl.identity(array)`, which `array` is a square matrix.
-
-* The method *gauss* returns a *numpy* vector containing the vector of variables from the augmented matrix. `sl.gauss(matrix)`, which `matrix` is the augmented matrix.
-
-* The method *inverse* returns a *numpy* inverse matrix of the matrix passed into to it, and it has the following syntax `sl.inverse(matrix)`, which `matrix` is a square matrix.
-
-* The method *cholesky* returns a *numpy* vector containing the vector of variables from the coefficient matrix and the constants vector, and it has the following syntax `sl.cholesky(A,b)`, which `A` is the coefficient matrix and `b` is the constants vector.
-  
-* The method *decomposition* returns a *numpy* vector containing the vector of variables from the coefficient matrix and the constants vector, and it has the following syntax `sl.cholesky(A,b)`, which `A` is the coefficient matrix and `b` is the constants vector.
-
-* The method *cramer* returns a *numpy* vector containing the vector of variables from the coefficient matrix and the constants vector, and it has the following syntax `sl.cholesky(A,b)`, which `A` is the coefficient matrix and `b` is the constants vector.
 
 ## Installation
 
