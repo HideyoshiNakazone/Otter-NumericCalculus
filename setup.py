@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.0",
     author="Vitor Hideyoshi",
     author_email="vitor.h.n.batista@gmail.com",
-    description="Algebra Functions Python Module for Numeric Calculus",
+    description="Numeric Calculus python module in the topic of Algebra Functions",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/HideyoshiNakazone/Otter-NumericCalculus.git",
