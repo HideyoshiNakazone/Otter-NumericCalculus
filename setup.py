@@ -4,11 +4,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="Otter", # Replace with your own username
-    version="1.0",
+    name="yoshi-otter", # Replace with your own username
+    version="1.1",
     author="Vitor Hideyoshi",
     author_email="vitor.h.n.batista@gmail.com",
-    description="Algebra Functions Python Module for Numeric Calculus",
+    description="Numeric Calculus python module in the topic of Algebra Functions",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/HideyoshiNakazone/Otter-NumericCalculus.git",
@@ -23,5 +23,6 @@ setuptools.setup(
     install_requires=[
           'numpy',
           'pandas',
+          'yoshi-seals'
       ],
 )
