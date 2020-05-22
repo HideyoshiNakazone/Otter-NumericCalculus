@@ -280,12 +280,12 @@ class Algebra:
     class Edo:
 
         def __init__(self, function):
-            self.f = function
+            self.F = function
 
         def euler(self,a,y,b,n=None):
 
             if n is None:
-                n = 10**7
+                n = 10**6
 
             dx = (b-a)/n
 
@@ -294,14 +294,14 @@ class Algebra:
 
             for i in range(n):
 
-                y = y + (self.f(x(i),y))*dx
+                y = y + (self.F(x(i),y))*dx
                 
             return y
 
         def runge(self,a,y,b,n=None):
 
             if n is None:
-                n = 10**7
+                n = 10**6
 
             dx = (b-a)/n
 
@@ -310,8 +310,28 @@ class Algebra:
 
             for i in range(n):
 
-                y = y + (dx/2)*(self.f(x(i),y)+self.f(x(i+1),(y+(dx*self.f(x(i),y)))))
+                y = y + (dx/2)*(self.F(x(i),y)+self.F(x(i+1),(y+(dx*self.F(x(i),y)))))
                 
+            return y
+
+        def adams(self,a,y,b,n=None):
+
+            if n is None:
+                n = 10**6
+
+            dx = (b-a)/n
+
+            def x(i):
+                return (a + i*dx)
+            
+            for i in range(n):
+
+                f0 = self.F(x(i),y)
+                f1 = self.F(x(i+1),y + dx*self.F(x(i)+(dx/2),y+(dx/2)*self.F(x(i),y)))
+                f2 = self.F(x(i+2),y + (dx/2)*(3*f1-f0))
+                
+                y += (dx/12)*(5*f2 + 8*f1 - f0)
+
             return y
 
 class Interpolation:
