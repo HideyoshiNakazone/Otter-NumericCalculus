@@ -19,6 +19,7 @@
 
 import math
 import numpy as np
+import pandas as pd
 import Seals
 
 sl = Seals.process()
@@ -279,12 +280,12 @@ class Algebra:
     class Edo:
 
         def __init__(self, function):
-            self.f = function
+            self.F = function
 
         def euler(self,a,y,b,n=None):
 
             if n is None:
-                n = 10**7
+                n = 10**6
 
             dx = (b-a)/n
 
@@ -293,14 +294,14 @@ class Algebra:
 
             for i in range(n):
 
-                y = y + (self.f(x(i),y))*dx
+                y = y + (self.F(x(i),y))*dx
                 
             return y
 
         def runge(self,a,y,b,n=None):
 
             if n is None:
-                n = 10**7
+                n = 10**6
 
             dx = (b-a)/n
 
@@ -309,8 +310,28 @@ class Algebra:
 
             for i in range(n):
 
-                y = y + (dx/2)*(self.f(x(i),y)+self.f(x(i+1),(y+(dx*self.f(x(i),y)))))
+                y = y + (dx/2)*(self.F(x(i),y)+self.F(x(i+1),(y+(dx*self.F(x(i),y)))))
                 
+            return y
+
+        def adams(self,a,y,b,n=None):
+
+            if n is None:
+                n = 10**6
+
+            dx = (b-a)/n
+
+            def x(i):
+                return (a + i*dx)
+            
+            for i in range(n):
+
+                f0 = self.F(x(i),y)
+                f1 = self.F(x(i+1),y + dx*self.F(x(i)+(dx/2),y+(dx/2)*self.F(x(i),y)))
+                f2 = self.F(x(i+2),y + (dx/2)*(3*f1-f0))
+                
+                y += (dx/12)*(5*f2 + 8*f1 - f0)
+
             return y
 
 class Interpolation:
@@ -327,25 +348,25 @@ class Interpolation:
         # somatorio de x
         for i in range(self.data.shape[0]):
 
-            theta += self.data[i][0]
+            theta += self.data.x[i]
 
         eta = 0
         #somatorio de y
         for i in range(self.data.shape[0]):
 
-            eta += self.data[i][1]
+            eta += self.data.y[i]
 
         sigma = 0
         #somatorio de xy
         for i in range(self.data.shape[0]):
 
-            sigma += self.data[i][0]*self.data[i][1]
+            sigma += self.data.x[i]*self.data.y[i]
 
         omega = 0
-        #somatorio de x^2
+        #somatorio de x^2self.dself.dself.d
         for i in range(self.data.shape[0]):
 
-            omega += self.data[i][0]**2
+            omega += self.data.x[i]**2
 
 
         self.a = (self.data.shape[0]*sigma - theta*eta)/(self.data.shape[0]*omega - (theta**2))
@@ -356,19 +377,19 @@ class Interpolation:
 
         for i in range(self.data.shape[0]):
 
-            ym += self.data[i][1]/self.data.shape[0]
+            ym += self.data.y[i]/self.data.shape[0]
 
         sqreq = 0
 
         for i in range(self.data.shape[0]):
 
-            sqreq += ((self.a*self.data[i][0] + self.b) - ym)**2
+            sqreq += ((self.a*self.data.x[i] + self.b) - ym)**2
 
         sqtot = 0
 
         for i in range(self.data.shape[0]):
 
-            sqtot += (self.data[i][1] - ym)**2
+            sqtot += (self.data.y[i] - ym)**2
 
         self.r2 = sqreq/sqtot
 
@@ -385,7 +406,7 @@ class Interpolation:
             
             for k in range(0, self.data.shape[0]):
 
-                matrix[:,k] = self.data[:,0]**k 
+                matrix[:,k] = self.data.x[:]**k 
 
             self.A = sl.gauss(np.c_[matrix,self.data[:,1]])
             
@@ -399,26 +420,23 @@ class Interpolation:
 
         def lagrange(self, x):
 
-            data_x = self.data[:,0]
-            data_y = self.data[:,1]
-
             def L(k,x):
         
                 up = down = 1
 
-                for i in [x for x in range(data_x.shape[0]) if x != k]:
-                    up = up*(x - data_x[i])
+                for i in [x for x in range(self.data.x.shape[0]) if x != k]:
+                    up = up*(x - self.data.x[i])
 
-                for i in [x for x in range(data_x.shape[0]) if x != k]:
-                    down = down*(data_x[k] - data_x[i])
+                for i in [x for x in range(self.data.x.shape[0]) if x != k]:
+                    down = down*(self.data.x[k] - self.data.x[i])
 
                 return up/down
 
             y = 0
 
-            for i in range(data_x.shape[0]):
+            for i in range(self.data.x.shape[0]):
 
-                y += data_y[i]*L(i,x)
+                y += self.data.y[i]*L(i,x)
 
             return y
 
@@ -426,7 +444,7 @@ class Interpolation:
             
             d = np.array(np.zeros((self.data.shape[0],self.data.shape[0])))
 
-            d[0] = self.data[:,1]
+            d[0] = self.data.y
 
             i = j = 0
 
@@ -434,7 +452,7 @@ class Interpolation:
 
                 while (j < (self.data.shape[0]-(i+1))):
 
-                    d[i+1][j] = (d[i][j+1] - d[i][j])/(self.data[(i+1)+j][0]-self.data[j][0])
+                    d[i+1][j] = (d[i][j+1] - d[i][j])/(self.data.x[(i+1)+j]-self.data.x[j])
                     j += 1
                 
                 i += 1
@@ -450,7 +468,7 @@ class Interpolation:
                     mult = 1
                     k = 0
                     while (k <= i):
-                        mult = mult*(x - self.data[k][0])
+                        mult = mult*(x - self.data.x[k])
                         k += 1
 
                     y += d[i+1][0]*mult
@@ -464,11 +482,11 @@ class Interpolation:
 
         def gregory(self,x):
 
-            h = self.data[0][0] - self.data[1][0]
+            h = self.data.x[0] - self.data.x[1]
             
             d = np.array(np.zeros((self.data.shape[0],self.data.shape[0])))
 
-            d[0] = self.data[:,1]
+            d[0] = self.data.y
 
             i = j = 0
 
@@ -490,7 +508,7 @@ class Interpolation:
                 mult = 1
                 k = 0
                 while (k <= i):
-                    mult = mult*(x - self.data[k][0])
+                    mult = mult*(x - self.data.x[k])
                     k += 1
 
                 y += d[i+1][0]*mult
