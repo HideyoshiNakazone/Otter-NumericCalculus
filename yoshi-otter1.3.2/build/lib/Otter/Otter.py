@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 import Seals
 
-sl = Seals.process()
+sl = Seals.process
 
 class Algebra:
 
