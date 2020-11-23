@@ -22,7 +22,6 @@ import numpy as np
 import pandas as pd
 from Seals import process as sl
 
-
 class Algebra:
 
     def __init__(self, function):
