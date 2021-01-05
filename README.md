@@ -10,8 +10,6 @@ This python package is made for applied Numeric Calculus of Algebra Functions. I
 
 * Performe integral with received functions
 
-* Use methods to proccess the matrices.
-
 * Find root of functions throw method of bissection and method of newton
 
 * Solve Diferential Equations throw method of euler and runge
