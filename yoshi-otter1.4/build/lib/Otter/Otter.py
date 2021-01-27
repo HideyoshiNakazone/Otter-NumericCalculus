@@ -512,4 +512,27 @@ class Interpolation:
                 y += d[i+1][0]*mult
                 i += 1
 
-            return y   
+            return y
+
+class Data:
+
+    def __init__(self):
+        pass
+
+    def FFT(x):
+
+        N = x.shape[0]
+        n = np.arange(N)
+        k = n.reshape((N, 1))
+        M = np.exp(-2j * np.pi * k * n / N)
+
+        return np.dot(M, x)
+
+    def IFFT(X):
+
+        N = X.shape[0]
+        n = np.arange(N)
+        k = n.reshape((N, 1))
+        M = np.exp(2j * np.pi * k * n / N)
+
+        return np.dot(M, X)/N

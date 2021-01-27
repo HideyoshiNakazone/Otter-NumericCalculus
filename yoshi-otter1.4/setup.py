@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="yoshi-otter", # Replace with your own username
-    version="1.3.3",
+    version="1.4",
     author="Vitor Hideyoshi",
     author_email="vitor.h.n.batista@gmail.com",
     description="Numeric Calculus python module in the topic of Algebra Functions",

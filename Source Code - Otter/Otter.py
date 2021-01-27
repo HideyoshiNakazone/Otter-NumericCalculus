@@ -514,71 +514,25 @@ class Interpolation:
 
             return y
 
-    class Data:
+class Data:
 
-        def __init__(self,f=None,data=None):
-            if f is not None:
-                self.integral = Algebra(f).integral
-            if data is not None:
-                self.data = data
+    def __init__(self):
+        pass
 
-        def FS(self,f,n,x0,x1):
+    def FFT(x):
 
-            L = (x1-x0)/2
+        N = x.shape[0]
+        n = np.arange(N)
+        k = n.reshape((N, 1))
+        M = np.exp(-2j * np.pi * k * n / N)
 
-            def a(f,i):
+        return np.dot(M, x)
 
-                def j(x):
-                    return f(x)*math.cos((i*math.pi*x)/L)
+    def IFFT(X):
 
-                return (1/L)*self.integral.riemann(j, x0, x1,n=10**3)
+        N = X.shape[0]
+        n = np.arange(N)
+        k = n.reshape((N, 1))
+        M = np.exp(2j * np.pi * k * n / N)
 
-
-            def b(f,i):
-                
-                def j(x):
-                    return f(x)*math.sin((i*math.pi*x)/L)
-
-                return (1/L)*self.integral.riemann(j, x0, x1,n=10**3)
-
-            an = np.zeros(n)
-            bn = np.zeros(n)
-            
-            for i in range(0,n):
-                print('Iteração: '+str(i+1))
-                an[i] = a(f,(i+1))
-                bn[i] = b(f,(i+1))
-
-            a0 = (1/L)*self.integral.riemann(f, x0, x1,n=10**3)
-
-            def g(t):
-
-                intr = np.linspace(t,t*n,n)
-                sin = np.sin((intr*math.pi)/L)
-                cos = np.cos((intr*math.pi)/L)
-                
-                return (a0/2) + an.dot(cos) + bn.dot(sin)
-
-            return g
-
-        def FFT(self):
-
-            x = self.data
-
-            N = x.shape[0]
-            n = np.arange(N)
-            k = n.reshape((N, 1))
-            M = np.exp(-2j * np.pi * k * n / N)
-
-            return np.dot(M, x)
-
-        def IFFT(self):
-
-            X = self.data
-
-            N = X.shape[0]
-            n = np.arange(N)
-            k = n.reshape((N, 1))
-            M = np.exp(2j * np.pi * k * n / N)
-
-            return np.dot(M, X)/N
+        return np.dot(M, X)/N
