@@ -1,0 +1,2 @@
+class InvalidFunctionSignature(Exception):
+    pass
