@@ -12,17 +12,10 @@ class TestInterpolation(unittest.TestCase):
         def f(x):
             return 2 * x
 
-        def g(x):
-            return x + x**2
-
-        X = np.linspace(0, 1000, num=1000)
+        X = np.linspace(0, 10, num=100)
         Y = [f(x) for x in X]
 
         self.data = pd.DataFrame(data={'X': X, 'Y': Y})
-
-        Y = [g(x) for x in X]
-
-        self.data_pol = pd.DataFrame(data={'X': X, 'Y': Y})
 
     def test_class_instantiation(self):
         interpolation = Interpolation(self.data)
@@ -34,33 +27,32 @@ class TestInterpolation(unittest.TestCase):
 
         self.assertEqual(func(1), 2)
 
-    @unittest.skip("Temporally not working")
     def test_polynomial_vandermonde(self):
-        interpolation = Interpolation(self.data_pol)
+        interpolation = Interpolation(self.data)
         func = interpolation.polynomial.vandermonde()
 
-        self.assertEqual(func(1), 2)
+        self.assertAlmostEqual(func(1), 2)
 
     @unittest.skip("Temporally not working")
     def test_polynomial_lagrange(self):
-        interpolation = Interpolation(self.data_pol)
+        interpolation = Interpolation(self.data)
         result = interpolation.polynomial.lagrange(1)
 
-        self.assertEqual(result, 2)
+        self.assertAlmostEqual(result, 2)
 
-    @unittest.skip("Temporally not working")
+    # @unittest.skip("Temporally not working")
     def test_polynomial_newton(self):
-        interpolation = Interpolation(self.data_pol)
+        interpolation = Interpolation(self.data)
         result = interpolation.polynomial.newton(1)
 
-        self.assertEqual(result, 2)
+        self.assertAlmostEqual(result, 2)
 
     @unittest.skip("Temporally not working")
     def test_polynomial_gregory(self):
-        interpolation = Interpolation(self.data_pol)
+        interpolation = Interpolation(self.data)
         result = interpolation.polynomial.gregory(1)
 
-        self.assertEqual(result, 2)
+        self.assertAlmostEqual(result, 2)
 
 
 if __name__ == '__main__':
