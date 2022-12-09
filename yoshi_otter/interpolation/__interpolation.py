@@ -1,7 +1,5 @@
-from typing import Callable, Any
-
 from yoshi_seals import process as sl
-
+from typing import Callable, Any
 import numpy as np
 
 
@@ -13,7 +11,7 @@ class Interpolation:
     def __init__(self, data) -> None:
 
         self.data = data
-        self.polynomial = self.Polynomial(self.data)
+        self.polynomial = self.__Polynomial(self.data)
 
     def minimums(self) -> Callable[[Any], float]:
 
@@ -60,7 +58,7 @@ class Interpolation:
 
         return lambda x: a * x + b, r2
 
-    class Polynomial:
+    class __Polynomial:
 
         def __init__(self, data) -> None:
             self.data = data
@@ -69,22 +67,20 @@ class Interpolation:
 
             matrix = np.zeros((self.data.shape[0], self.data.shape[0]))
 
-            for k in range(0, self.data.shape[0]):
-                matrix[:, k] = self.data.X[:] ** k
+            for k in range(self.data.shape[0]):
+                matrix[:, k] = self.data.X[:].copy() ** k
 
             array = np.array(self.data.Y.tolist()).reshape(self.data.shape[0], 1)
-            A = sl.gauss(matrix, array)
+            coefficient_matrix = sl.gauss(matrix, array)[:]
 
-            def f(coefficient_matrix, x):
-
+            def __f(coefficients, x):
                 y = 0
-
-                for i in range(0, A.shape[0]):
-                    y += coefficient_matrix[1][i] * (x ** i)
+                for i in range(0, coefficients.shape[0]):
+                    y += float(coefficients[i]) * (x ** i)
 
                 return y
 
-            return lambda x: f(A, x)
+            return lambda x: __f(coefficient_matrix, x)
 
         def lagrange(self, x: float) -> float:
 
@@ -155,24 +151,23 @@ class Interpolation:
 
             d[0] = self.data.Y
 
-            i = j = 0
-
+            i = 0
             while i < self.data.shape[0]:
 
+                j = 0
                 while j < (self.data.shape[0] - (i + 1)):
                     d[i + 1][j] = (d[i][j + 1] - d[i][j]) / ((i + 1) * h)
                     j += 1
 
                 i += 1
-                j = 0
 
             y = d[0][0]
+
             i = 0
-
             while (i + 1) < self.data.shape[0]:
-
                 mult = 1
                 k = 0
+
                 while k <= i:
                     mult = mult * (x - self.data.X[k])
                     k += 1
@@ -180,4 +175,4 @@ class Interpolation:
                 y += d[i + 1][0] * mult
                 i += 1
 
-            return y
+            return -y

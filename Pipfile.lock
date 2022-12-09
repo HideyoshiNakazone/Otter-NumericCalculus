@@ -108,10 +108,10 @@
         },
         "yoshi-seals": {
             "hashes": [
-                "sha256:448de57bfee12999ecd56e456e8a13f312396030b9872a2b5c9eac729e07e097"
+                "sha256:85e1697b289a135191362a3885db01bc568e0ca341da0eddeac69dabc86e35d8"
             ],
             "index": "pypi",
-            "version": "==2.0.3645235495"
+            "version": "==2.0.3654593985"
         }
     },
     "develop": {
