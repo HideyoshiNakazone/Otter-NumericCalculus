@@ -1,7 +1,6 @@
 import setuptools
 import os
 
-
 __name = "yoshi-otter"
 
 __version_sufix = os.environ.get('VERSION_SUFIX')
@@ -31,8 +30,8 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-          'numpy',
-          'pandas',
-          'yoshi-seals'
-      ],
+        'numpy',
+        'pandas',
+        'yoshi-seals'
+    ],
 )
