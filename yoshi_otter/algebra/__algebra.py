@@ -30,7 +30,7 @@ from yoshi_otter.shared import InvalidFunctionSignature
 
 class Algebra:
 
-    def __init__(self, function: Callable[[float], float] | Callable[[float, float], float]) -> None:
+    def __init__(self, function: Union[Callable[[float], float], Callable[[float, float], float]]) -> None:
         self.f = function
 
         self.integral = self.__Integral(self.f)
