@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "yoshi-otter"
+version = "0.0.0"
+description = ""
+authors = ["Vitor Hideyoshi Nakazone Batista <vitor.h.n.batista@gmail.com>"]
+license = "GPL-2.0-only"
+packages = [
+    { include = "yoshi_otter", from = "." },
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.2"
+numpy = "^2.0.0"
+yoshi-seals = "^2.1"
+
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+bump = "auto"
+format = "v{base}"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
