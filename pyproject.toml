@@ -19,14 +19,6 @@ yoshi-seals = "^2.1"
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
-format-jinja = """
-    {% if distance == 0 %}
-        {{ base }}
-    {% else %}
-        {{ base }}+{{ distance }}.{{ commit }}
-    {% endif %}
-"""
-
 
 
 [build-system]
